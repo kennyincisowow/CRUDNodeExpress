@@ -25,12 +25,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const oneDay = 1000 * 60 * 60 * 24;
 app.use(session({ 
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge:  oneDay},
     store: new session.MemoryStore,
     saveUninitialized: true,
-    resave: 'true',
-    secret: 'secret'
+    resave: 'false',
+    secret: '0123456789'
 }))
 
 app.use(flash());

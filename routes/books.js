@@ -4,19 +4,26 @@ var dbConn  = require('../lib/db');
  
 // display books page
 router.get('/', function(req, res, next) {
-      
-    dbConn.query('SELECT * FROM books ORDER BY id desc',function(err,rows)     {
+    if(!req.session.idu){
+        res.render('login/index');
+    }else{
+        dbConn.query('SELECT * FROM books ORDER BY id desc',function(err,rows)     {
  
-        if(err) {
-            req.flash('error', err);
-            // render to views/books/index.ejs
-            res.render('books',{data:''});   
-            console.log(rows);
-        } else {
-            // render to views/books/index.ejs
-            res.render('books',{data:rows});
-        }
-    });
+            if(err) {
+                req.flash('error', err);
+                // render to views/books/index.ejs
+                res.render('books',{data:''});   
+                console.log(rows);
+            } else {
+                // render to views/books/index.ejs
+                res.locals.idu=req.session.idu;
+                res.locals.user=req.session.user;
+                res.locals.email=req.session.email;
+    
+                res.render('books',{data:rows});
+            }
+        });
+    }
 });
 
 // display add book page
