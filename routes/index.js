@@ -49,10 +49,28 @@ router.get('/dashboard', function(req, res, next) {
   
 });
 
+router.get('/api', function(req, res, next) {
+  if(!req.session.idu){
+    res.render('login/index');
+  }else{
+    dbConn.query('SELECT marca, COUNT(*) as cantidad FROM clients GROUP BY marca;',function(err,rows)     {
+      if(err) {
+          req.flash('error', err);  
+          console.log(rows);
+      } else {
+        res.send(JSON.stringify(rows));
+        //res.render('login/dashboard',{data:JSON.stringify(rows)});
+      }
+    });
+  }
+  
+});
+
 // Logout endpoint
 router.get('/logout', function (req, res) {
   req.session.destroy();
-  res.render('login/index');
+  //res.render('login/index');
+  res.redirect("/");
 });
 
 module.exports = router;
