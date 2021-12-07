@@ -44,16 +44,29 @@ router.get('/dashboard', function(req, res, next) {
     res.locals.idu=req.session.idu;
     res.locals.user=req.session.user;
     res.locals.email=req.session.email;
-    res.render('login/dashboard');
+  
+    dbConn.query('SELECT SUM(saldo) as total FROM clients',function(err,rows1)     {
+      if(err) {
+          req.flash('error', err);  
+          console.log(rows1);
+      } else {
+        dbConn.query('SELECT * FROM clients WHERE saldo=0',function(err,rows2)     {
+          if(err) throw err;
+          
+          res.render('login/dashboard',{data1:rows1,data2:rows2});
+        });
+        
+      }
+    });
   }
   
 });
 
-router.get('/api', function(req, res, next) {
+router.get('/api1', function(req, res, next) {
   if(!req.session.idu){
     res.render('login/index');
   }else{
-    dbConn.query('SELECT marca, COUNT(*) as cantidad FROM clients GROUP BY marca;',function(err,rows)     {
+    dbConn.query('SELECT marca, COUNT(*) as cantidad FROM clients GROUP BY marca',function(err,rows)     {
       if(err) {
           req.flash('error', err);  
           console.log(rows);
@@ -63,7 +76,22 @@ router.get('/api', function(req, res, next) {
       }
     });
   }
-  
+});
+
+router.get('/api2', function(req, res, next) {
+  if(!req.session.idu){
+    res.render('login/index');
+  }else{
+    dbConn.query('SELECT marca, SUM(saldo) as importe FROM clients GROUP BY marca;',function(err,rows)     {
+      if(err) {
+          req.flash('error', err);  
+          console.log(rows);
+      } else {
+        res.send(JSON.stringify(rows));
+        //res.render('login/dashboard',{data:JSON.stringify(rows)});
+      }
+    });
+  }
 });
 
 // Logout endpoint

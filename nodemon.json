@@ -1,6 +1,6 @@
 {
     "watch": ["start"],
-    "ext": "ejs",
+    "ext": "ejs,js,css",
     "ignore": ["*.test.ts"],
     "delay": "3",
     "execMap": {

@@ -20,17 +20,84 @@
     <%- include('../partials/header'); %>
 
     <main class="container">
+      <div class="row mb-5">
+        <div class="col-md-4">
+          <div class="card bg-info">
+            <div class="card-body">
+              <div class="align-items-center row">
+                <div class="col">
+                  <h6 class="text-uppercase text-muted mb-2">Saldo Total Clientes</h6>
+                  <span class="h2 mb-0">S/. <%= data1[0].total %></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card bg-warning">
+            <div class="card-body">
+              <div class="align-items-center row">
+                <div class="col">
+                  <h6 class="text-uppercase text-muted mb-2">Value</h6>
+                  <span class="h2 mb-0">$24,500</span>
+                  <span class="mt-n1 ms-2 badge bg-success-soft">+3.5%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card bg-success">
+            <div class="card-body">
+              <div class="align-items-center row">
+                <div class="col">
+                  <h6 class="text-uppercase text-muted mb-2">Value</h6>
+                  <span class="h2 mb-0">$24,500</span>
+                  <span class="mt-n1 ms-2 badge bg-success-soft">+3.5%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col-md-6">
-          <h3>Cantidad de Clientes por Marca</h3>
+          <h3>Saldo total por Marca</h3>
           <div id="chartdiv"></div>
         </div>
         <div class="col-md-6">
-          <h3>Cantidad de Clientes por Marca</h3>
+          <h3>% de Clientes por Marca</h3>
           <div id="chartdiv2"></div>
         </div>
       </div>
       
+      <div class="row mt-5">
+        <div class="col-md-6">
+          <h3>Lista de usuarios sin saldo</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Telefono</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(var i = 0; i< data2.length; i++) { %>
+              <tr>
+                <th scope="row"><%= data2[i].id%></th>
+                <td><%= data2[i].nombre%></td>
+                <td><%= data2[i].email%></td>
+                <td><%= data2[i].telefono%></td>
+              </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-6"></div>
+      </div>
     </main>
 
     <%- include('../partials/footer'); %>
@@ -48,7 +115,7 @@ am4core.useTheme(am4themes_animated);
 var chart = am4core.create("chartdiv", am4charts.XYChart);
 chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
-let url="http://127.0.0.1:3000/api/";
+let url="http://127.0.0.1:3000/api2/";
 fetch(url)
   .then(response=>response.json())
   .then(datos=>mostrar(datos))
@@ -72,7 +139,7 @@ categoryAxis.fontSize = 11;
 
 var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
 valueAxis.min = 0;
-valueAxis.max = 10;
+valueAxis.max = 1500;
 valueAxis.strictMinMax = true;
 valueAxis.renderer.minGridDistance = 30;
 // axis break
@@ -111,7 +178,7 @@ axisBreak.events.on("out", function() {
 
 var series = chart.series.push(new am4charts.ColumnSeries());
 series.dataFields.categoryX = "marca";
-series.dataFields.valueY = "cantidad";
+series.dataFields.valueY = "importe";
 series.columns.template.tooltipText = "{valueY.value}";
 series.columns.template.tooltipY = 0;
 series.columns.template.strokeOpacity = 0;
@@ -164,7 +231,7 @@ chart.data = [ {
 ];
 */
 
-let url="http://127.0.0.1:3000/api/";
+let url="http://127.0.0.1:3000/api1/";
 fetch(url)
 	.then(response=>response.json())
 	.then(datos=>mostrar(datos))
