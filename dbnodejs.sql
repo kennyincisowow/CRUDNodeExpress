@@ -44,7 +44,66 @@ INSERT INTO `books` (`id`, `name`, `author`, `created_at`, `updated_at`) VALUES
 (2, 'El caballero Carmelo', 'Abraham Valdelomar', '2021-11-08 19:59:34', '2021-11-08 19:59:34');
 
 -- --------------------------------------------------------
+-- --------------------------------------------------------
 
+--
+-- Estructura de tabla para la tabla `persona`
+--
+
+CREATE TABLE `persona` (
+  ` persona_id` int(11) NOT NULL,
+  `persona_nombres` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `persona_roles` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `persona_ap_materno` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `persona_ap_paterno` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `persona_estado_civil` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `persona_ocupacion_profesion` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `persona_dni` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `persona_direccion` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `persona_telefono` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `persona`
+--
+
+insert into persona (persona_id,persona_nombres,persona_roles,persona_ap_materno,persona_ap_paterno,persona_estado_civil,persona_ocupacion_profesion,persona_fecha_nacimiento,persona_dni,persona_direccion,persona_telefono) values ('1','kenny','gerente','inciso','inciso','s','estudiante','','43788956','paltas con camotes','978451236');
+insert into persona (persona_id,persona_nombres,persona_roles,persona_ap_materno,persona_ap_paterno,persona_estado_civil,persona_ocupacion_profesion,persona_fecha_nacimiento,persona_dni,persona_direccion,persona_telefono) values ('2','jork','asistonto','cardios','zarse','s','vagancia','','41895623','paltas sin camotes','975482159');
+insert into persona (persona_id,persona_nombres,persona_roles,persona_ap_materno,persona_ap_paterno,persona_estado_civil,persona_ocupacion_profesion,persona_fecha_nacimiento,persona_dni,persona_direccion,persona_telefono) values ('3','krel','saladero','most','charls','s','amo de jato','','45796956','paltas con verdad','968475123');
+insert into persona (persona_id,persona_nombres,persona_roles,persona_ap_materno,persona_ap_paterno,persona_estado_civil,persona_ocupacion_profesion,persona_fecha_nacimiento,persona_dni,persona_direccion,persona_telefono) values ('4','crasl','subgerente','inciso','inciso','s','priocitas','curdate()-interval 500 day','47788956','volvandetas camotes','957153464');
+
+
+-- --------------------------------------------------------
+--
+-- Estructura de tabla para la tabla `books`
+--
+
+CREATE TABLE `socios` (
+  `socio_id` int(11) NOT NULL,
+  `socio_codigo` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `socio_persona_id` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `books`
+--
+
+insert into socios (socio_id,socio_codigo,socio_persona_id) values('1','78945',1);
+insert into socios (socio_id,socio_codigo,socio_persona_id) values('2','35678',2);
+insert into socios (socio_id,socio_codigo,socio_persona_id) values('3','78456',3);
+insert into socios (socio_id,socio_codigo,socio_persona_id) values('4','89564',4);
+insert into socios (socio_id,socio_codigo,socio_persona_id) values('5','68456',5);
+insert into socios (socio_id,socio_codigo,socio_persona_id) values('6','39564',6);
+insert into socios (socio_id,socio_codigo,socio_persona_id) values('7','48456',7);
+insert into socios (socio_id,socio_codigo,socio_persona_id) values('8','59564',8);
+insert into socios (socio_id,socio_codigo,socio_persona_id) values('9','19564',9);
+
+-- --------------------------------------------------------
+-- --------------------------------------------------------
 --
 -- Estructura de tabla para la tabla `clients`
 --
@@ -133,6 +192,19 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `persona`
+--
+ALTER TABLE `persona`
+  ADD PRIMARY KEY (`persona_id`);
+
+--
+--
+-- Indices de la tabla `persona`
+--
+ALTER TABLE `socios`
+  ADD PRIMARY KEY (`socio_id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -153,6 +225,18 @@ ALTER TABLE `clients`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
+
+--
+-- AUTO_INCREMENT de la tabla `persona`
+--
+ALTER TABLE `persona`
+  MODIFY `persona_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+COMMIT;
+-- AUTO_INCREMENT de la tabla `socios`
+--
+ALTER TABLE `socios`
+  MODIFY `socio_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -19,10 +19,10 @@
                                     <div class="card-header">
                                         <ul class="nav nav-pills w-100">
                                             <li class="nav-pill active">
-                                                <a class="nav-link">Gestión de Libros</a>
+                                                <a class="nav-link">Gestión de Socios</a>
                                             </li>
                                             <li class="nav-pill ml-auto">
-                                                <a class="nav-link active" href="/books/add">Add Book</a>
+                                                <a class="nav-link active" href="/socios/add">Registro de personas</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -33,8 +33,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">#</th>
-                                                        <th scope="col">Name</th>
-                                                        <th scope="col">Author</th>
+                                                        <th scope="col">codigo de socios</th>
+                                                        <th scope="col">persona</th>
                                                         <th width="200px">Action</th>
                                                     </tr>
                                                 </thead>
@@ -45,17 +45,18 @@
                                                                 <%= (i+1) %>
                                                             </th>
                                                             <td>
-                                                                <%= data[i].name%>
+                                                                <%= data[i].socio_codigo%>
                                                             </td>
                                                             <td>
-                                                                <%= data[i].author%>
+                                                                <%= data[i].socio_persona_id%>
                                                             </td>
                                                             <td>
                                                                 <a class="btn btn-success edit"
-                                                                    href="../books/edit/<%=data[i].id%>">Edit</a>
+                                                                    href="../socios/edit/<%=data[i].socio_id%>">Edit</a>
                                                                 <a class="btn btn-danger delete"
                                                                     onclick="return confirm('Are You sure?')"
-                                                                    href="../books/delete/<%=data[i].id%>">Delete</a>
+                                                                    href="../socios/delete/<%=data[i].socio_id%>">Delete</a>
+
                                                             </td>
                                                         </tr>
                                                         <% } %>
@@ -65,7 +66,7 @@
 
                                                 <!-- if result is empty -->
                                                 <% if(!data.length) { %>
-                                                    <p class="text-center">No book found!</p>
+                                                    <p class="text-center">No Persona found!</p>
                                                     <% } %>
 
                                     </div>

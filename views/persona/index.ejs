@@ -19,10 +19,10 @@
                                     <div class="card-header">
                                         <ul class="nav nav-pills w-100">
                                             <li class="nav-pill active">
-                                                <a class="nav-link">Gestión de Libros</a>
+                                                <a class="nav-link">Gestión de Personas</a>
                                             </li>
                                             <li class="nav-pill ml-auto">
-                                                <a class="nav-link active" href="/books/add">Add Book</a>
+                                                <a class="nav-link active" href="/persona/add">Registro de personas</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -33,8 +33,15 @@
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">#</th>
-                                                        <th scope="col">Name</th>
-                                                        <th scope="col">Author</th>
+                                                        <th scope="col">Nombre</th>
+                                                        <th scope="col">Rol</th>
+                                                        <th scope="col">Apellido materno</th>
+                                                        <th scope="col">Apellido paterno</th>
+                                                        <th scope="col">Estado civil</th>
+                                                        <th scope="col">Ocupacion o profesion</th>
+                                                        <th scope="col">DNI</th>
+                                                        <th scope="col">Direccion</th>
+                                                        <th scope="col">telefeno</th>
                                                         <th width="200px">Action</th>
                                                     </tr>
                                                 </thead>
@@ -45,17 +52,40 @@
                                                                 <%= (i+1) %>
                                                             </th>
                                                             <td>
-                                                                <%= data[i].name%>
+                                                                <%= data[i].persona_nombres%>
                                                             </td>
                                                             <td>
-                                                                <%= data[i].author%>
+                                                                <%= data[i].persona_roles%>
                                                             </td>
+                                                            <td>
+                                                                <%= data[i].persona_ap_materno%>
+                                                            </td>
+                                                            <td>
+                                                                <%= data[i].persona_ap_paterno%>
+                                                            </td>
+                                                            <td>
+                                                                <%= data[i].persona_estado_civil%>
+                                                            </td>
+                                                            <td>
+                                                                <%= data[i].persona_ocupacion_profesion%>
+                                                            </td>
+                                                            <td>
+                                                                <%= data[i].persona_dni%>
+                                                            </td>
+                                                            <td>
+                                                                <%= data[i].persona_direccion%>
+                                                            </td>
+                                                            <td>
+                                                                <%= data[i].persona_telefono%>
+                                                            </td>
+
                                                             <td>
                                                                 <a class="btn btn-success edit"
-                                                                    href="../books/edit/<%=data[i].id%>">Edit</a>
+                                                                    href="../persona/edit/<%=data[i].persona_id%>">Edit</a>
                                                                 <a class="btn btn-danger delete"
                                                                     onclick="return confirm('Are You sure?')"
-                                                                    href="../books/delete/<%=data[i].id%>">Delete</a>
+                                                                    href="../persona/delete/<%=data[i].persona_id%>">Delete</a>
+
                                                             </td>
                                                         </tr>
                                                         <% } %>
@@ -65,7 +95,7 @@
 
                                                 <!-- if result is empty -->
                                                 <% if(!data.length) { %>
-                                                    <p class="text-center">No book found!</p>
+                                                    <p class="text-center">No Persona found!</p>
                                                     <% } %>
 
                                     </div>

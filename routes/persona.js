@@ -78,6 +78,7 @@ router.post('/add', function(req, res, next) {
     }
 
     // if no error
+    
     if(!errors) {
 
         var form_data = {
@@ -91,7 +92,7 @@ router.post('/add', function(req, res, next) {
          
             persona_telefono:persona_telefono  
         }
-        
+        console.log(form_data)
         // insert query
         dbConn.query('INSERT INTO persona SET ?', form_data, function(err, result) {
             //if(err) throw err
@@ -166,7 +167,7 @@ router.post('/update/:persona_id', function(req, res, next) {
     let persona_dni= req.body.persona_dni;
     let persona_telefono= req.body.persona_telefono ;
     let errors = false;
-
+    console.log('entroooo', req.body)
     if(persona_nombres.length === 0 || persona_roles.length === 0 || persona_ap_materno.length === 0 || persona_ap_paterno.length === 0 || persona_estado_civil.length === 0|| 
         persona_ocupacion_profesion.length === 0 ||  persona_dni.length === 0 || persona_telefono.length === 0 ) {
         errors = true;

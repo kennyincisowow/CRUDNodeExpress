@@ -24,6 +24,7 @@ router.post('/login', function(req, res, next) {
           req.session.idu=rows[0]["id"];
           req.session.user=rows[0]["nombre"];
           req.session.email=rows[0]["email"];
+          req.session.clave=rows[0]["password"];
           res.redirect("/dashboard");
         }else{
           req.flash('success', 'El usuario no existe'); 
@@ -44,7 +45,9 @@ router.get('/dashboard', function(req, res, next) {
     res.locals.idu=req.session.idu;
     res.locals.user=req.session.user;
     res.locals.email=req.session.email;
-  
+    let buff = new Buffer(req.session.clave); // creo un bufer al crear esto mi contraseña se encripta a numero 0 y 1
+    let base64data = buff.toString('base64'); // aca lo convierto a base 64 mi contraseña
+    res.locals.clave= base64data;
     dbConn.query('SELECT SUM(saldo) as total FROM clients',function(err,rows1)     {
       if(err) {
           req.flash('error', err);  

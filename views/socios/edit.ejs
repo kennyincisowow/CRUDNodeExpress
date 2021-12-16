@@ -1,0 +1,40 @@
+<%- include('../partials/head'); %>
+
+    <body>
+        <%- include('../partials/header'); %>
+            <div class="container">
+
+                <% if (messages.error) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <%- messages.error %>
+                    </div>
+                    <% } %>
+
+                        <div class="card">
+                            <div class="card-header">
+                                Edit Socios
+                            </div>
+                            <div class="card-body">
+                                <form action="/socios/update/<%= socio_id %>" method="post">
+                                    <div class="form-group">
+                                        <label>socido de socios:</label>
+                                        <input type="text" class="form-control" name="socio_codigo"
+                                            value="<%= socio_codigo %>" autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>persona socio:</label>
+                                        <input type="text" class="form-control" name="socio_persona_id"
+                                            value="<%= socio_persona_id %>" autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-info" value="Update" />
+                                        <a href="/socios" class="btn btn-secondary">Cancel</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+            </div>
+            <%- include('../partials/footer'); %>
+    </body>
+
+    </html>

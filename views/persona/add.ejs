@@ -1,0 +1,72 @@
+<%- include('../partials/head'); %>
+
+    <body>
+        <%- include('../partials/header'); %>
+            <div class="container">
+                <% if (messages.error) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <%- messages.error %>
+                    </div>
+                    <% } %>
+
+                        <div class="card">
+                            <div class="card-header">
+                                Add Persona
+                            </div>
+                            <div class="card-body">
+                                <form action="/persona/add" method="post">
+                                    <div class="form-group">
+                                        <label>Name:</label>
+                                        <input type="text" class="form-control" name="persona_nombres"
+                                            value="<%= persona_nombres %>" autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>ROLES:</label>
+                                        <input type="text" class="form-control" name="persona_roles"
+                                            value="<%= persona_roles %>" autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Apellido materno:</label>
+                                        <input type="text" class="form-control" name="persona_ap_materno"
+                                            value="<%= persona_ap_materno %>" autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Apellido paterno:</label>
+                                        <input type="text" class="form-control" name="persona_ap_paterno"
+                                            value="<%= persona_ap_paterno %>" autocomplete="off">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Estado civil:</label>
+                                        <input type="text" class="form-control" name="persona_estado_civil"
+                                            value="<%= persona_estado_civil %>" autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Ocupacion o profesion:</label>
+                                        <input type="text" class="form-control" name="persona_ocupacion_profesion"
+                                            value="<%= persona_ocupacion_profesion %>" autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>DNI:</label>
+                                        <input type="text" class="form-control" name="persona_dni"
+                                            value="<%= persona_dni %>" autocomplete="off">
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label>telefono:</label>
+                                        <input type="text" class="form-control" name="persona_telefono"
+                                            value="<%= persona_telefono %>" autocomplete="off">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="submit" class="btn btn-info" value="Add" />
+                                        <a href="/persona" class="btn btn-secondary">Cancel</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+            </div>
+            <%- include('../partials/footer'); %>
+    </body>
+
+    </html>
