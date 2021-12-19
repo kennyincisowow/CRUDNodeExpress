@@ -15,111 +15,120 @@ router.get('/', function(req, res, next) {
                 res.render('persona',{data:''});   
                 console.log(rows);
             } else {
-                // render to views/books/index.ejs
-                res.locals.idu=req.session.idu;
-                res.locals.user=req.session.user;
-                res.locals.email=req.session.email;
-    
-                res.render('persona',{data:rows});
+                dbConn.query('SELECT * FROM rol',function(err,rol)     {
+                    if(err) {
+                        req.flash('error', err);
+                        // render to views/persona/index.ejs
+                        res.render('persona',{data:''});   
+                        console.log(rows);
+                    } else {
+                        // render to views/books/index.ejs
+                        res.locals.idu=req.session.idu;
+                        res.locals.user=req.session.user;
+                        res.locals.email=req.session.email;
+                        res.render('persona',
+                        {   data:rows,
+                            rol:rol
+                        }
+                        );
+                    }
+                })
             }
         });
     }
 });
 
-// display add book page
-router.get('/add', function(req, res, next) {    
-    // render to add.ejs
-    res.render('persona/add', {
-        persona_nombres: '',
-        persona_roles:'',
-        persona_ap_materno: '', 
-        persona_ap_paterno:'',
-        persona_estado_civil:'',
-        persona_ocupacion_profesion:'',
-        persona_dni:'',
-        
-        persona_telefono:''    
-    })
-})
+// // display add book page
+// router.get('/add', function(req, res, next) {    
+//     dbConn.query('SELECT * FROM rol',function(err,rows)     {
+ 
+//         if(err) {
+//             req.flash('error', err);
+//             // render to views/persona/index.ejs
+//             res.render('persona',{data:''});   
+//             console.log(rows);
+//         } else {
+//             // render to add.ejs
+//             console.log(rows);
+//             res.render('persona/add', {
+//                 persona_nombres: '',
+//                 persona_roles:'',
+//                 persona_ap_materno: '', 
+//                 persona_ap_paterno:'',
+//                 persona_estado_civil:'',
+//                 persona_ocupacion_profesion:'',
+//                 persona_dni:'',
+//                 persona_telefono:'',
+//                 data:rows
+//             })
+//         }
+//     });
+    
+// })
 
 // add a new book
 router.post('/add', function(req, res, next) {    
-
-    let persona_nombres = req.body.persona_nombres;
-    let persona_roles =req.body.persona_roles;
-    let persona_ap_materno = req.body.persona_ap_materno;
-    let persona_ap_paterno = req.body.persona_ap_paterno;
-    let persona_estado_civil =req.body.persona_estado_civil;
-    let persona_ocupacion_profesion =req.body.persona_ocupacion_profesion;
-    let persona_dni =req.body.persona_dni;
+    let persona_usuario = req.body.persona_usuario
+    let persona_clave = req.body.persona_clave
+    let persona_rol = req.body.persona_rol
+    let persona_nombres = req.body.persona_nombres
+    let persona_ap_materno = req.body.persona_ap_materno
+    let persona_ap_paterno = req.body.persona_ap_paterno
+    let persona_estado_civil =req.body.persona_estado_civil
+    let persona_ocupacion_profesion =req.body.persona_ocupacion_profesion
+    let persona_dni =req.body.persona_dni
     
     let persona_telefono =req.body.persona_telefono;
     let errors = false;
-
-    if(persona_nombres.length === 0 || persona_roles.length === 0 || persona_ap_materno.length === 0 || persona_ap_paterno.length === 0 || persona_estado_civil.length === 0|| 
-        persona_ocupacion_profesion.length === 0 ||  persona_dni.length === 0 || persona_telefono.length === 0 ) {
-        errors = true;
-
-        // set flash message
-        req.flash('error', "POR FAVOR INGRESE LOS DATOS COMPLETOS");
-        // render to add.ejs with flash message
-        res.render('persona/add', {
-            persona_nombres: persona_nombres,
-            persona_roles:persona_roles,
-            persona_ap_materno: persona_ap_materno, 
-            persona_ap_paterno: persona_ap_paterno,
-            persona_estado_civil:persona_estado_civil,
-            persona_ocupacion_profesion:persona_ocupacion_profesion,
-            persona_dni: persona_dni,
-           
-            persona_telefono:persona_telefono  
-
-        })
+    console.log(req.body.persona_nombres)
+    var response = {
+        status: 0
     }
-
-    // if no error
-    
-    if(!errors) {
-
-        var form_data = {
-            persona_nombres: persona_nombres,
-            persona_roles:persona_roles,
-            persona_ap_materno: persona_ap_materno,
-            persona_ap_paterno: persona_ap_paterno,
-            persona_estado_civil:persona_estado_civil,
-            persona_ocupacion_profesion:persona_ocupacion_profesion,
-            persona_dni: persona_dni,
-         
-            persona_telefono:persona_telefono  
+    var formUsuario = {
+        nombre: persona_nombres,
+        email:persona_usuario,
+        password: persona_clave,
+        id_rol: persona_rol
+    }
+    var formPersona = {
+        persona_nombres: persona_nombres,
+        persona_ap_materno: persona_ap_materno,
+        persona_ap_paterno: persona_ap_paterno,
+        persona_estado_civil:persona_estado_civil,
+        persona_ocupacion_profesion:persona_ocupacion_profesion,
+        persona_dni: persona_dni,
+        persona_telefono:persona_telefono  
+    }
+       handlerAgregar(formUsuario, formPersona, function(err, message) {
+        if (err) {
+            response.message = err.message
+            res.send(response)
+        } else {
+            response.message = message
+            response.status = 1
+            res.send(response)
         }
-        console.log(form_data)
-        // insert query
-        dbConn.query('INSERT INTO persona SET ?', form_data, function(err, result) {
-            //if(err) throw err
-            if (err) {
-                req.flash('error', err)
-                 
-                // render to add.ejs
-                res.render('persona/add', {
-                    persona_nombres: form_data.persona_nombres,
-                    persona_roles: form_data.persona_roles , 
-                    persona_ap_materno: form_data.persona_ap_materno,
-                    persona_ap_paterno: form_data.persona_ap_paterno ,
-                    persona_estado_civil: form_data.persona_estado_civil , 
-                    persona_ocupacion_profesion: form_data.persona_ocupacion_profesion , 
-                    persona_dni: form_data.persona_dni ,
-                   
-                    persona_telefono: form_data.persona_telefono  
-
-                })
-            } else {                
-                req.flash('success', 'persona successfully added');
-                res.redirect('/persona');
-            }
-        })
-    }
+    })
 })
+let handlerAgregar = function (formUsuario, formPersona, callback) {
 
+    dbConn.query('INSERT INTO users SET ?', formUsuario, function(err, result) {
+        //if(err) throw err
+        if (err) {
+            callback(err)
+        } else {
+            formPersona.id_usuario = result.insertId
+            dbConn.query('INSERT INTO persona SET ?', formPersona, function(err, result) {
+                //if(err) throw err
+                if (err) {
+                    callback(err)
+                } else{
+                  callback(null, 'Usuario registrado.')
+                }
+            })
+        }
+    })
+}
 // display edit book page
 router.get('/edit/(:persona_id)', function(req, res, next) {
 
@@ -167,7 +176,7 @@ router.post('/update/:persona_id', function(req, res, next) {
     let persona_dni= req.body.persona_dni;
     let persona_telefono= req.body.persona_telefono ;
     let errors = false;
-    console.log('entroooo', req.body)
+    
     if(persona_nombres.length === 0 || persona_roles.length === 0 || persona_ap_materno.length === 0 || persona_ap_paterno.length === 0 || persona_estado_civil.length === 0|| 
         persona_ocupacion_profesion.length === 0 ||  persona_dni.length === 0 || persona_telefono.length === 0 ) {
         errors = true;

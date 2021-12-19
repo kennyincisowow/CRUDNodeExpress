@@ -3,7 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
+var cors = require('cors')
 var flash = require('express-flash');
 var session = require('express-session');
 var mysql = require('mysql');
@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(cors())
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(session({ 
     cookie: { maxAge:  oneDay},

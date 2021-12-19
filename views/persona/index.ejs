@@ -22,14 +22,15 @@
                                                 <a class="nav-link">Gestión de Personas</a>
                                             </li>
                                             <li class="nav-pill ml-auto">
-                                                <a class="nav-link active" href="/persona/add">Registro de personas</a>
+                                                <a class="nav-link active" onclick="abrirModal()"><i
+                                                        class="fas fa-user-plus"></i></a>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="card-body">
 
                                         <% if(data.length) { %>
-                                            <table class="table">
+                                            <table class="table" id="table">
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">#</th>
@@ -83,8 +84,7 @@
                                                                 <a class="btn btn-success edit"
                                                                     href="../persona/edit/<%=data[i].persona_id%>">Edit</a>
                                                                 <a class="btn btn-danger delete"
-                                                                    onclick="return confirm('Are You sure?')"
-                                                                    href="../persona/delete/<%=data[i].persona_id%>">Delete</a>
+                                                                    onclick="confirmar(<%=data[i].persona_id%>)">Delete</a>
 
                                                             </td>
                                                         </tr>
@@ -101,7 +101,179 @@
                                     </div>
                                 </div>
             </div>
+            <!-- Modal -->
+            <div class="modal fade" id="mdPersona" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel"> Nuevo Usuario</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="card-body">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                                            data-bs-target="#home" type="button" role="tab" aria-controls="home"
+                                            aria-selected="true">Credenciales</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                            data-bs-target="#profile" type="button" role="tab" aria-controls="profile"
+                                            aria-selected="false">Datos Personales</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="home" role="tabpanel"
+                                        aria-labelledby="home-tab">
+                                        <form>
+                                            <div class="form-group">
+                                                <label>Usuario:</label>
+                                                <input type="text" class="form-control" id="persona_usuario"
+                                                    name="persona_usuario" autocomplete="off">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Password:</label>
+                                                <input type="text" class="form-control" id="persona_clave"
+                                                    name="persona_nombres" autocomplete="off">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Rol:</label>
+                                                <select class="form-select" id="persona_rol"
+                                                    aria-label="Default select example">
+                                                    <option selected>Seleccione</option>
+                                                    <% rol.forEach(function(r) { %>
+                                                        <option value="<%= r.id_rol %>">
+                                                            <%= r.rol_nombre %>
+                                                        </option>
+                                                        <% }); %>
+                                                </select>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="tab-pane fade" id="profile" role="tabpanel"
+                                        aria-labelledby="profile-tab">
+                                        <form action="/persona/add" method="post">
+                                            <div class="form-group">
+                                                <label>Nombre:</label>
+                                                <input type="text" class="form-control" id="persona_nombres"
+                                                    name="persona_nombres" autocomplete="off">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Apellido materno:</label>
+                                                <input type="text" class="form-control" id="persona_ap_materno"
+                                                    name="persona_ap_materno" autocomplete="off">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Apellido paterno:</label>
+                                                <input type="text" class="form-control" id="persona_ap_paterno"
+                                                    name="persona_ap_paterno" autocomplete="off">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Estado civil:</label>
+                                                <select class="form-select" id="persona_estado_civil"
+                                                    aria-label="Default select example">
+                                                    <option selected value="s">Soltero</option>
+                                                    <option value="c">Casado</option>
+                                                    <option value="v">Viudo</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Ocupacion o profesion:</label>
+                                                <input type="text" class="form-control" id="persona_ocupacion_profesion"
+                                                    name="persona_ocupacion_profesion" autocomplete="off">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>DNI:</label>
+                                                <input type="text" class="form-control" id="persona_dni"
+                                                    name="persona_dni" autocomplete="off">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>telefono:</label>
+                                                <input type="text" class="form-control" id="persona_telefono"
+                                                    name="persona_telefono" autocomplete="off">
+                                            </div>
+                                            <div class="form-group">
+                                                <input onclick="agregar()" class="btn btn-info" value="Add" />
+                                                <a href="/persona" class="btn btn-secondary">Cancel</a>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
             <%- include('../partials/footer'); %>
     </body>
+    <script>
+        $(document).ready(function () {
+            $('#table').DataTable();
+        });
+        function abrirModal() {
+            $('#mdPersona').modal('show')
+        }
+        function agregar() {
+            $.post("/persona/add", {
+                persona_usuario: $("#persona_usuario").val(),
+                persona_clave: $('#persona_clave').val(),
+                persona_rol: $('#persona_rol').val(),
+                persona_nombres: $('#persona_nombres').val(),
+                persona_ap_materno: $('#persona_ap_materno').val(),
+                persona_ap_paterno: $('#persona_ap_paterno').val(),
+                persona_estado_civil: $('#persona_estado_civil').val(),
+                persona_ocupacion_profesion: $('#persona_ocupacion_profesion').val(),
+                persona_dni: $('#persona_dni').val(),
+                persona_telefono: $('#persona_telefono').val()
+
+            }, function (result) {
+                if (result.status === 1) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: result.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.message
+                    })
+                }
+                setTimeout("location.href='/persona'", 2000);
+            });
+        }
+        function confirmar(id, nombre) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, Eliminar el id: ' + id
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "../persona/delete/" + id,
+                        success: function () {
+                            Swal.fire(
+                                'Deleted!',
+                                'El id : ' + id + ' se elimino correctamente.',
+                                'success'
+                            )
+                            setTimeout("location.href='/persona'", 2000);
+                        }
+                    });
+                }
+            })
+        }
+    </script>
 
     </html>

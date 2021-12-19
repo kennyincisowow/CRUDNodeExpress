@@ -1,265 +1,274 @@
 <%- include('../partials/head'); %>
-<!-- Resources -->
-<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
-<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
-<script src="//www.amcharts.com/lib/4/themes/animated.js"></script>
+  <!-- Resources -->
+  <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+  <script src="//www.amcharts.com/lib/4/themes/animated.js"></script>
 
-<script src="https://cdn.amcharts.com/lib/4/lang/de_DE.js"></script>
-<script src="https://cdn.amcharts.com/lib/4/geodata/germanyLow.js"></script>
-<script src="https://cdn.amcharts.com/lib/4/fonts/notosans-sc.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/lang/de_DE.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/geodata/germanyLow.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/fonts/notosans-sc.js"></script>
 
-<style>
-  #chartdiv #chartdiv2 {
-    width: 100%;
-    height: 800px;
-  }
-</style>
+  <style>
+    #chartdiv #chartdiv2 {
+      width: 100%;
+      height: 800px;
+    }
+  </style>
 
   <body>
 
     <%- include('../partials/header'); %>
 
-    <main class="container">
-      <div class="row mb-5">
-        <div class="col-md-4">
-          <div class="card bg-info">
-            <div class="card-body">
-              <div class="align-items-center row">
-                <div class="col">
-                  <h6 class="text-uppercase text-muted mb-2">Saldo Total Clientes</h6>
-                  <span class="h2 mb-0">S/. <%= data1[0].total %></span>
+      <main class="container">
+        <div class="row mb-5">
+          <div class="col-md-4">
+            <div class="card bg-info">
+              <div class="card-body">
+                <div class="align-items-center row">
+                  <div class="col">
+                    <h6 class="text-uppercase text-muted mb-2">TOTALES SOCIOS por compra</h6>
+                    <span class="h2 mb-0">S/. <%= data1[0].total %></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card bg-warning">
+              <div class="card-body">
+                <div class="align-items-center row">
+                  <div class="col">
+                    <h6 class="text-uppercase text-muted mb-2">Value</h6>
+                    <span class="h2 mb-0">$24,500</span>
+                    <span class="mt-n1 ms-2 badge bg-success-soft">+3.5%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card bg-success">
+              <div class="card-body">
+                <div class="align-items-center row">
+                  <div class="col">
+                    <h6 class="text-uppercase text-muted mb-2">Value</h6>
+                    <span class="h2 mb-0">$24,500</span>
+                    <span class="mt-n1 ms-2 badge bg-success-soft">+3.5%</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card bg-warning">
-            <div class="card-body">
-              <div class="align-items-center row">
-                <div class="col">
-                  <h6 class="text-uppercase text-muted mb-2">Value</h6>
-                  <span class="h2 mb-0">$24,500</span>
-                  <span class="mt-n1 ms-2 badge bg-success-soft">+3.5%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card bg-success">
-            <div class="card-body">
-              <div class="align-items-center row">
-                <div class="col">
-                  <h6 class="text-uppercase text-muted mb-2">Value</h6>
-                  <span class="h2 mb-0">$24,500</span>
-                  <span class="mt-n1 ms-2 badge bg-success-soft">+3.5%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-6">
-          <h3>Saldo total por Marca</h3>
-          <div id="chartdiv"></div>
+        <div class="row">
+          <div class="col-md-6">
+            <h3>SOCIOS POR COMPRA</h3>
+            <div id="chartdiv"></div>
+          </div>
+          <div class="col-md-6">
+            <h3>% de SOCIOS REGISTRADO</h3>
+            <div id="chartdiv2"></div>
+          </div>
         </div>
-        <div class="col-md-6">
-          <h3>% de Clientes por Marca</h3>
-          <div id="chartdiv2"></div>
-        </div>
-      </div>
-      
-      <div class="row mt-5">
-        <div class="col-md-6">
-          <h3>Lista de usuarios sin saldo</h3>
-          <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Correo</th>
-                <th scope="col">Telefono</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% for(var i = 0; i< data2.length; i++) { %>
-              <tr>
-                <th scope="row"><%= data2[i].id%></th>
-                <td><%= data2[i].nombre%></td>
-                <td><%= data2[i].email%></td>
-                <td><%= data2[i].telefono%></td>
-              </tr>
-              <% } %>
-            </tbody>
-          </table>
-        </div>
-        <div class="col-md-6"></div>
-      </div>
-    </main>
 
-    <%- include('../partials/footer'); %>
+        <div class="row mt-5">
+          <div class="col-md-6">
+            <h3>Lista de usuarios </h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">usuario</th>
+                  <th scope="col">Telefono</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for(var i=0; i< data2.length; i++) { %>
+                  <tr>
+                    <th scope="row">
+                      <%= data2[i].id%>
+                    </th>
+                    <td>
+                      <%= data2[i].nombre%>
+                    </td>
+                    <td>
+                      <%= data2[i].email%>
+                    </td>
+                    <td>
+                      <%= data2[i].telefono%>
+                    </td>
+                  </tr>
+                  <% } %>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6"></div>
+        </div>
+      </main>
+
+      <%- include('../partials/footer'); %>
   </body>
-</html>
 
-<!-- Chart code -->
-<script>
-am4core.ready(function() {
+  </html>
 
-// Themes begin
-am4core.useTheme(am4themes_animated);
-// Themes end
+  <!-- Chart code -->
+  <script>
+    am4core.ready(function () {
 
-var chart = am4core.create("chartdiv", am4charts.XYChart);
-chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+      // Themes begin
+      am4core.useTheme(am4themes_animated);
+      // Themes end
 
-let url="http://127.0.0.1:3000/api2/";
-fetch(url)
-  .then(response=>response.json())
-  .then(datos=>mostrar(datos))
-  .then(e=>console.log(e))
+      var chart = am4core.create("chartdiv", am4charts.XYChart);
+      chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
-const mostrar=(tipos)=>{
-  tipos.forEach(element=>{
-    chart.data.push(element.marca)
-  });
-  chart.data=tipos;
-  console.log(chart.data);
-};
+      let url = "http://127.0.0.1:3000/api2/";
+      fetch(url)
+        .then(response => response.json())
+        .then(datos => mostrar(datos))
+        .then(e => console.log(e))
 
-
-
-var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
-categoryAxis.renderer.grid.template.location = 0;
-categoryAxis.dataFields.category = "marca";
-categoryAxis.renderer.minGridDistance = 40;
-categoryAxis.fontSize = 11;
-
-var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-valueAxis.min = 0;
-valueAxis.max = 1500;
-valueAxis.strictMinMax = true;
-valueAxis.renderer.minGridDistance = 30;
-// axis break
-var axisBreak = valueAxis.axisBreaks.create();
-axisBreak.startValue = 2100;
-axisBreak.endValue = 22900;
-//axisBreak.breakSize = 0.005;
-
-// fixed axis break
-var d = (axisBreak.endValue - axisBreak.startValue) / (valueAxis.max - valueAxis.min);
-axisBreak.breakSize = 0.05 * (1 - d) / d; // 0.05 means that the break will take 5% of the total value axis height
-
-// make break expand on hover
-var hoverState = axisBreak.states.create("hover");
-hoverState.properties.breakSize = 1;
-hoverState.properties.opacity = 0.1;
-hoverState.transitionDuration = 1500;
-
-axisBreak.defaultState.transitionDuration = 1000;
-/*
-// this is exactly the same, but with events
-axisBreak.events.on("over", function() {
-  axisBreak.animate(
-    [{ property: "breakSize", to: 1 }, { property: "opacity", to: 0.1 }],
-    1500,
-    am4core.ease.sinOut
-  );
-});
-axisBreak.events.on("out", function() {
-  axisBreak.animate(
-    [{ property: "breakSize", to: 0.005 }, { property: "opacity", to: 1 }],
-    1000,
-    am4core.ease.quadOut
-  );
-});*/
-
-var series = chart.series.push(new am4charts.ColumnSeries());
-series.dataFields.categoryX = "marca";
-series.dataFields.valueY = "importe";
-series.columns.template.tooltipText = "{valueY.value}";
-series.columns.template.tooltipY = 0;
-series.columns.template.strokeOpacity = 0;
-
-// as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
-series.columns.template.adapter.add("fill", function(fill, target) {
-  return chart.colors.getIndex(target.dataItem.index);
-});
-
-}); // end am4core.ready()  
-</script>
+      const mostrar = (tipos) => {
+        tipos.forEach(element => {
+          chart.data.push(element.marca)
+        });
+        chart.data = tipos;
+        console.log(chart.data);
+      };
 
 
 
-<script>
-  am4core.ready(function() {
+      var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+      categoryAxis.renderer.grid.template.location = 0;
+      categoryAxis.dataFields.category = "marca";
+      categoryAxis.renderer.minGridDistance = 40;
+      categoryAxis.fontSize = 11;
 
-// Themes begin
-am4core.useTheme(am4themes_animated);
-//am4core.useTheme(am4themes_dark);
-// Themes end
+      var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+      valueAxis.min = 0;
+      valueAxis.max = 1500;
+      valueAxis.strictMinMax = true;
+      valueAxis.renderer.minGridDistance = 30;
+      // axis break
+      var axisBreak = valueAxis.axisBreaks.create();
+      axisBreak.startValue = 2100;
+      axisBreak.endValue = 22900;
+      //axisBreak.breakSize = 0.005;
 
-// Create chart instance
-var chart = am4core.create("chartdiv2", am4charts.PieChart);
+      // fixed axis break
+      var d = (axisBreak.endValue - axisBreak.startValue) / (valueAxis.max - valueAxis.min);
+      axisBreak.breakSize = 0.05 * (1 - d) / d; // 0.05 means that the break will take 5% of the total value axis height
 
-// Add data
-/*
-chart.data = [ {
-  "country": "Lithuania",
-  "litres": 501.9
-}, {
-  "country": "Czechia",
-  "litres": 301.9
-}, {
-  "country": "Ireland",
-  "litres": 201.1
-}, {
-  "country": "Germany",
-  "litres": 165.8
-}, {
-  "country": "Australia",
-  "litres": 139.9
-}, {
-  "country": "Austria",
-  "litres": 128.3
-}, {
-  "country": "UK",
-  "litres": 99
-}
-];
-*/
+      // make break expand on hover
+      var hoverState = axisBreak.states.create("hover");
+      hoverState.properties.breakSize = 1;
+      hoverState.properties.opacity = 0.1;
+      hoverState.transitionDuration = 1500;
 
-let url="http://127.0.0.1:3000/api1/";
-fetch(url)
-	.then(response=>response.json())
-	.then(datos=>mostrar(datos))
-	.then(e=>console.log(e))
+      axisBreak.defaultState.transitionDuration = 1000;
+      /*
+      // this is exactly the same, but with events
+      axisBreak.events.on("over", function() {
+        axisBreak.animate(
+          [{ property: "breakSize", to: 1 }, { property: "opacity", to: 0.1 }],
+          1500,
+          am4core.ease.sinOut
+        );
+      });
+      axisBreak.events.on("out", function() {
+        axisBreak.animate(
+          [{ property: "breakSize", to: 0.005 }, { property: "opacity", to: 1 }],
+          1000,
+          am4core.ease.quadOut
+        );
+      });*/
 
-const mostrar=(tipos)=>{
-	tipos.forEach(element=>{
-		chart.data.push(element.descripcion)
-	});
-	chart.data=tipos;
-	console.log(chart.data);
-};
+      var series = chart.series.push(new am4charts.ColumnSeries());
+      series.dataFields.categoryX = "marca";
+      series.dataFields.valueY = "importe";
+      series.columns.template.tooltipText = "{valueY.value}";
+      series.columns.template.tooltipY = 0;
+      series.columns.template.strokeOpacity = 0;
 
+      // as by default columns of the same series are of the same color, we add adapter which takes colors from chart.colors color set
+      series.columns.template.adapter.add("fill", function (fill, target) {
+        return chart.colors.getIndex(target.dataItem.index);
+      });
 
-// Add and configure Series
-var pieSeries = chart.series.push(new am4charts.PieSeries());
-pieSeries.dataFields.value = "cantidad";
-pieSeries.dataFields.category = "marca";
-pieSeries.slices.template.stroke = am4core.color("#fff");
-pieSeries.slices.template.strokeOpacity = 1;
-
-// This creates initial animation
-pieSeries.hiddenState.properties.opacity = 1;
-pieSeries.hiddenState.properties.endAngle = -90;
-pieSeries.hiddenState.properties.startAngle = -90;
-
-chart.hiddenState.properties.radius = am4core.percent(0);
+    }); // end am4core.ready()  
+  </script>
 
 
-}); // end am4core.ready()
-</script>
+
+  <script>
+    am4core.ready(function () {
+
+      // Themes begin
+      am4core.useTheme(am4themes_animated);
+      //am4core.useTheme(am4themes_dark);
+      // Themes end
+
+      // Create chart instance
+      var chart = am4core.create("chartdiv2", am4charts.PieChart);
+
+      // Add data
+      /*
+      chart.data = [ {
+        "country": "Lithuania",
+        "litres": 501.9
+      }, {
+        "country": "Czechia",
+        "litres": 301.9
+      }, {
+        "country": "Ireland",
+        "litres": 201.1
+      }, {
+        "country": "Germany",
+        "litres": 165.8
+      }, {
+        "country": "Australia",
+        "litres": 139.9
+      }, {
+        "country": "Austria",
+        "litres": 128.3
+      }, {
+        "country": "UK",
+        "litres": 99
+      }
+      ];
+      */
+
+      let url = "http://127.0.0.1:3000/api1/";
+      fetch(url)
+        .then(response => response.json())
+        .then(datos => mostrar(datos))
+        .then(e => console.log(e))
+
+      const mostrar = (tipos) => {
+        tipos.forEach(element => {
+          chart.data.push(element.descripcion)
+        });
+        chart.data = tipos;
+        console.log(chart.data);
+      };
+
+
+      // Add and configure Series
+      var pieSeries = chart.series.push(new am4charts.PieSeries());
+      pieSeries.dataFields.value = "cantidad";
+      pieSeries.dataFields.category = "marca";
+      pieSeries.slices.template.stroke = am4core.color("#fff");
+      pieSeries.slices.template.strokeOpacity = 1;
+
+      // This creates initial animation
+      pieSeries.hiddenState.properties.opacity = 1;
+      pieSeries.hiddenState.properties.endAngle = -90;
+      pieSeries.hiddenState.properties.startAngle = -90;
+
+      chart.hiddenState.properties.radius = am4core.percent(0);
+
+
+    }); // end am4core.ready()
+  </script>
