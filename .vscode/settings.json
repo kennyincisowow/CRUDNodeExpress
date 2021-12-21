@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
+        "actividades",
         "Apellido",
         "codigo",
         "completos",
@@ -10,6 +11,7 @@
         "materno",
         "maternos",
         "nacimiento",
+        "nombre",
         "nombres",
         "Ocupacion",
         "padron",
@@ -19,6 +21,7 @@
         "registro",
         "socio",
         "socios",
-        "telefono"
+        "telefono",
+        "tipo"
     ]
 }
